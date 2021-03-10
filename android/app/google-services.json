@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1046783650963",
+    "project_id": "ntreatment-20ecf",
+    "storage_bucket": "ntreatment-20ecf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1046783650963:android:a5c9948400614906523166",
+        "android_client_info": {
+          "package_name": "com.azim.ntreatment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1046783650963-jfuk2pq69fcrhridoige0ns3uutqjbsk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeCsRVzNIWzIrNvzDDTSdkif5S3da0y5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1046783650963-jfuk2pq69fcrhridoige0ns3uutqjbsk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
