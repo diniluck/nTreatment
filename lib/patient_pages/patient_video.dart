@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ntreatment/Entry/home_page.dart';
-import 'package:ntreatment/video/video_player.dart';
 import 'package:ntreatment/video/videoplayeritem.dart';
 
 class PatientVideo extends StatefulWidget {

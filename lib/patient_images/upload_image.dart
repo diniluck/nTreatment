@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,14 @@ class UploadPatientImages extends StatefulWidget {
 }
 
 class _UploadPatientImagesState extends State<UploadPatientImages> {
+  Future<void> pickFile()async{
+    FilePickerResult result = await FilePicker.platform.pickFiles();
+    if(result != null) {
+      File file = File(result.files.single.path);
+    } else {
+      // User canceled the picker
+    }
+  }
   TextEditingController captionsController = TextEditingController();
   File file;
   bool uploading=false;
@@ -29,10 +38,10 @@ class _UploadPatientImagesState extends State<UploadPatientImages> {
     return downloadUrl;
   }
   saveItemInfo(String downloadUrl) {
-    var cpatientIdforVideo = FirebaseAuth.instance.currentUser.uid;
+    var cpatientIdforImage = FirebaseAuth.instance.currentUser.uid;
     final itemsRef = FirebaseFirestore.instance
         .collection('patient')
-        .doc(cpatientIdforVideo)
+        .doc(cpatientIdforImage)
         .collection('patientImages');
     itemsRef.doc("patientImages").set({
       "Send at": DateTime.now(),

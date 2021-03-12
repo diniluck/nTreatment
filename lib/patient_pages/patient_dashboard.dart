@@ -1,11 +1,15 @@
 import 'dart:io';
 
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ntreatment/patient_images/send_image.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as pPath;
+import 'package:provider/provider.dart';
 import 'package:ntreatment/Entry/home_page.dart';
 
 import 'package:ntreatment/chat/chat_screen.dart';
@@ -24,6 +28,7 @@ class PatientDashboard extends StatefulWidget {
 }
 
 class _PatientDashboardState extends State<PatientDashboard> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +151,9 @@ class _PatientDashboardState extends State<PatientDashboard> {
                         SizedBox(width:20),
                         ActionChip(
                           label: Text('Send Image', style: TextStyle(color: Colors.white)),
-                          onPressed: ()=>takeImage(context),
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>FilePickerDemo()));
+                          },
                           backgroundColor: Color(0xff8DC34D),
                           elevation: 20,
                         ),
@@ -256,11 +263,36 @@ class _PatientDashboardState extends State<PatientDashboard> {
   }
   File file;
   bool uploading=false;
-  Future pickImage(ImageSource src)async{
+  Future<void> pickImage(ImageSource src)async{
     //Navigator.pop(context);
-    final file = await ImagePicker().getImage(source: src);
+    final imageFile = await ImagePicker().getImage(source: src);
+    if (imageFile == null){
+      return;
+    }
+    Future<void> pickFile()async{
+      FilePickerResult result = await FilePicker.platform.pickFiles();
+      if(result != null) {
+        File file = File(result.files.single.path);
+      } else {
+        print('File is not sellected');
+      }
+    }
+    setState(() {
+      file = imageFile as File;
+    });
+    /*final appDir = await pPath.getApplicationDocumentsDirectory();
+    final fileName = path.basename(imageFile.path);
+   final saveImage = await imageFile.copy('${appDir.path}/$fileName');
+    var _imageToStore = Picture(pickName: savedImage);
+    _storeImage(){
+      Provider.of<Pictures>(context, listen: false).storeImage(_imageToStore);
+    }
+    _storeImage();*/
+
     Navigator.push(context, MaterialPageRoute(builder: (context)=>UploadPatientImages(
         File(file.path),file.path,src
     )));
   }
+
 }
+
